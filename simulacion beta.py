@@ -6,8 +6,11 @@ Created on Thu May 26 12:00:05 2022
 """
 import numpy as np
 import matplotlib.pyplot as plt
+
+import scipy.special as sc
+
 def distrbeta(x,alpha,beta):
-    bet=1/scipy.special.beta(alpha,beta)*x**(alpha-1)*(1-x)**(beta-1)
+    bet=1/sc.beta(alpha,beta)*x**(alpha-1)*(1-x)**(beta-1)
     return bet
 alpha=500
 beta=501
@@ -31,15 +34,14 @@ print(datetime.now() - startTime)
 #Método 2
 startTime = datetime.now()
 
-y1=np.random.gamma(alpha,scale=1,size=10000)
-y2=np.random.gamma(beta,scale=1,size=10000)
+y1=np.random.gamma(alpha,scale=1,size=400)
+y2=np.random.gamma(beta,scale=1,size=400)
 Z=[y1[i]/(y2[i]+y1[i]) for i in range(len(y1))]
 plt.hist(Z,alpha=0.5,density=True)
 print(datetime.now() - startTime)
 
-import scipy
 
-x=np.linspace(0,1,num=1000)
+x=np.linspace(0,1,num=200)
 
 disbeta=[distrbeta(i,alpha,beta) for i in x ]
 plt.plot(x,disbeta)
